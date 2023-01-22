@@ -1,13 +1,13 @@
 <?php
 
-function ahp2_get_matrik_kriteria_produk($id_kriteria_produk){
-	for($i=0;$i<count($id_kriteria_produk);$i++){
-		for($ii=0;$ii<count($id_kriteria_produk);$ii++){
+function ahp2_get_matrik_kriteria_ukm($id_kriteria_ukm){
+	for($i=0;$i<count($id_kriteria_ukm);$i++){
+		for($ii=0;$ii<count($id_kriteria_ukm);$ii++){
 			if($i==$ii){
 				$matrik[$i][$ii]=1;
 			}else{
 				if($i < $ii){
-					$q=mysql_query("select nilai from nilai_kriteria_produk where id_kriteria_produk_1='".$id_kriteria_produk[$i]."' and id_kriteria_produk_2='".$id_kriteria_produk[$ii]."'");
+					$q=mysql_query("select nilai from nilai_kriteria_ukm where id_kriteria_ukm_1='".$id_kriteria_ukm[$i]."' and id_kriteria_ukm_2='".$id_kriteria_ukm[$ii]."'");
 					if(mysql_num_rows($q)>0){
 						$h=mysql_fetch_array($q);
 						$nilai=$h['nilai'];
@@ -23,14 +23,14 @@ function ahp2_get_matrik_kriteria_produk($id_kriteria_produk){
 	}
 	return $matrik;
 }
-function ahp2_get_matrik_produk($id_kriteria_produk, $id_produk){
-	for($i=0;$i<count($id_produk);$i++){
-		for($ii=0;$ii<count($id_produk);$ii++){
+function ahp2_get_matrik_ukm($id_kriteria_ukm, $id_ukm){
+	for($i=0;$i<count($id_ukm);$i++){
+		for($ii=0;$ii<count($id_ukm);$ii++){
 			if($i==$ii){
 				$matrik[$i][$ii]=1;
 			}else{
 				if($i < $ii){
-					$q=mysql_query("select nilai from nilai_produk where id_kriteria_produk='".$id_produk."' and id_produk_1='".$id_produk[$i]."' and id_produk_2='".$id_produk[$ii]."'");
+					$q=mysql_query("select nilai from nilai_ukm where id_kriteria_ukm='".$id_ukm."' and id_ukm_1='".$id_ukm[$i]."' and id_ukm_2='".$id_ukm[$ii]."'");
 					if(mysql_num_rows($q)>0){
 						$h=mysql_fetch_array($q);
 						$nilai=$h['nilai'];

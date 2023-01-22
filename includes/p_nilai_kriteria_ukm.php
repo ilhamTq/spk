@@ -1,35 +1,35 @@
 <?php
-$link_update='?hal=nilai_kriteria_produk';
+$link_update='?hal=nilai_kriteria_ukm';
 
-$q="select * from kriteria_produk order by kode_kriteria_produk";
+$q="select * from kriteria_ukm order by kode_kriteria_ukm";
 $q=mysql_query($q);
 while($h=mysql_fetch_array($q)){
-	$kriteria_produk[]=array($h['id_kriteria_produk'],$h['kode_kriteria_produk'],$h['nama_kriteria_produk']);
+	$kriteria_ukm[]=array($h['id_kriteria_ukm'],$h['kode_kriteria_ukm'],$h['nama_kriteria_ukm']);
 }
 
 if(isset($_POST['save'])){
-	mysql_query("truncate table nilai_kriteria_produk"); /* kosongkan tabel nilai_kriteria_produk */
-	for($i=0;$i<count($kriteria_produk);$i++){
-		for($ii=0;$ii<count($kriteria_produk);$ii++){
+	mysql_query("truncate table nilai_kriteria_ukm"); /* kosongkan tabel nilai_kriteria_ukm */
+	for($i=0;$i<count($kriteria_ukm);$i++){
+		for($ii=0;$ii<count($kriteria_ukm);$ii++){
 			if($i < $ii){
-				mysql_query("insert into nilai_kriteria_produk(id_kriteria_produk_1,id_kriteria_produk_2,nilai) values('".$kriteria_produk[$i][0]."','".$kriteria_produk[$ii][0]."','".$_POST['nilai_'.$kriteria_produk[$i][0].'_'.$kriteria_produk[$ii][0]]."')");
+				mysql_query("insert into nilai_kriteria_ukm(id_kriteria_ukm_1,id_kriteria_ukm_2,nilai) values('".$kriteria_ukm[$i][0]."','".$kriteria_ukm[$ii][0]."','".$_POST['nilai_'.$kriteria_ukm[$i][0].'_'.$kriteria_ukm[$ii][0]]."')");
 			}
 		}
 	}
-	$success='Nilai perbandingan kriteria produk berhasil disimpan.';
+	$success='Nilai perbandingan kriteria ukm berhasil disimpan.';
 }
 if(isset($_POST['check'])){
 	require_once ( 'ahp2.php' );
-	for($i=0;$i<count($kriteria_produk);$i++){
-		$id_kriteria_produk[]=$kriteria_produk[$i][0];
+	for($i=0;$i<count($kriteria_ukm);$i++){
+		$id_kriteria_ukm[]=$kriteria_ukm[$i][0];
 	}
 	
-	$matrik_kriteria_produk = ahp2_get_matrik_kriteria_produk($id_kriteria_produk);
-	$jumlah_kolom = ahp2_get_jumlah_kolom($matrik_kriteria_produk);
-	$matrik_normalisasi = ahp2_get_normalisasi($matrik_kriteria_produk, $jumlah_kolom);
+	$matrik_kriteria_ukm = ahp2_get_matrik_kriteria_ukm($id_kriteria_ukm);
+	$jumlah_kolom = ahp2_get_jumlah_kolom($matrik_kriteria_ukm);
+	$matrik_normalisasi = ahp2_get_normalisasi($matrik_kriteria_ukm, $jumlah_kolom);
 	$eigen = ahp2_get_eigen($matrik_normalisasi);
 	
-	if(ahp2_uji_konsistensi($matrik_kriteria_produk, $eigen)){
+	if(ahp2_uji_konsistensi($matrik_kriteria_ukm, $eigen)){
 		$success='Nilai perbandingan : KONSISTEN';
 	}else{
 		$error='Nilai perbandingan : TIDAK KONSISTEN';
@@ -39,31 +39,31 @@ if(isset($_POST['check'])){
 	
 }
 if(isset($_POST['reset'])){
-	mysql_query("truncate table nilai_kriteria_produk"); /* kosongkan tabel nilai_kriteria */
+	mysql_query("truncate table nilai_kriteria_ukm"); /* kosongkan tabel nilai_kriteria */
 }
 
-for($i=0;$i<count($kriteria_produk);$i++){
-	for($ii=0;$ii<count($kriteria_produk);$ii++){
+for($i=0;$i<count($kriteria_ukm);$i++){
+	for($ii=0;$ii<count($kriteria_ukm);$ii++){
 		if($i < $ii){
-			$q=mysql_query("select nilai from nilai_kriteria_produk where id_kriteria_produk_1='".$kriteria_produk[$i][0]."' and id_kriteria_produk_2='".$kriteria_produk[$ii][0]."'");
+			$q=mysql_query("select nilai from nilai_kriteria_ukm where id_kriteria_ukm_1='".$kriteria_ukm[$i][0]."' and id_kriteria_ukm_2='".$kriteria_ukm[$ii][0]."'");
 			if(mysql_num_rows($q)>0){
 				$h=mysql_fetch_array($q);
 				$nilai=$h['nilai'];
 			}else{
-				mysql_query("insert into nilai_kriteria_produk(id_kriteria_produk_1,id_kriteria_produk_2,nilai) values('".$kriteria_produk[$i][0]."','".$kriteria_produk[$ii][0]."','1')");
+				mysql_query("insert into nilai_kriteria_ukm(id_kriteria_ukm_1,id_kriteria_ukm_2,nilai) values('".$kriteria_ukm[$i][0]."','".$kriteria_ukm[$ii][0]."','1')");
 				$nilai=1;
 			}
-			$row=count($kriteria_produk)-1;
+			$row=count($kriteria_ukm)-1;
 			$selected[$nilai]=' selected';
 			
 			$daftar.='
 			  <tr>
-				<td align="right">'.$kriteria_produk[$i][1].' - '.$kriteria_produk[$i][2].'</td>
+				<td align="right">'.$kriteria_ukm[$i][1].' - '.$kriteria_ukm[$i][2].'</td>
 				<td align="center">
-				<input type="text" name="nilai_'.$kriteria_produk[$i][0].'_'.$kriteria_produk[$ii][0].'" value='.$nilai.'>
+				<input type="text" name="nilai_'.$kriteria_ukm[$i][0].'_'.$kriteria_ukm[$ii][0].'" value='.$nilai.'>
 				
 				</td>
-				<td>'.$kriteria_produk[$ii][1].' - '.$kriteria_produk[$ii][2].'</td>
+				<td>'.$kriteria_ukm[$ii][1].' - '.$kriteria_ukm[$ii][2].'</td>
 				</td>
 				
 
@@ -87,7 +87,7 @@ function ResetConfirm(){
 }
 </script>
 
-<h3 class="p2">Nilai Perbandingan Kriteria produk</h3>
+<h3 class="p2">Nilai Perbandingan Kriteria ukm</h3>
 
 <form action="<?php echo $link_update;?>" name="" method="post" enctype="multipart/form-data">
 <?php
@@ -110,9 +110,9 @@ if(!empty($success)){
 <table class="table table-striped table-hover table-bordered">
 	<thead>
 		<tr>
-			<th>Nama Kriteria produk</th>
+			<th>Nama Kriteria ukm</th>
 			<th>Nilai Perbandingan</th>
-			<th>Nama Kriteria produk</th>
+			<th>Nama Kriteria ukm</th>
 			
 		</tr>
 	</thead>

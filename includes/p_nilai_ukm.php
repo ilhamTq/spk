@@ -1,51 +1,51 @@
 <?php
-$link_update='?hal=nilai_produk';
+$link_update='?hal=nilai_ukm';
 
-$q="select * from produk order by kode_produk";
+$q="select * from ukm order by kode_ukm";
 $q=mysql_query($q);
 while($h=mysql_fetch_array($q)){
-	$produk[]=array($h['id_produk'],$h['kode_produk'],$h['nama_produk']);
+	$ukm[]=array($h['id_ukm'],$h['kode_ukm'],$h['nama_ukm']);
 }
 
-$id_kriteria_produk=$_POST['kriteria_produk'];
+$id_kriteria_ukm=$_POST['kriteria_ukm'];
 
 if(isset($_POST['save'])){
-	$id_kriteria_produk=$_POST['kriteria_produk'];
-	mysql_query("delete from nilai_produk where id_kriteria_produk='".$id_kriteria_produk."'"); /* kosongkan tabel nilai_supplier berdasarkan kriteria */
-	for($i=0;$i<count($produk);$i++){
-		for($ii=0;$ii<count($produk);$ii++){
+	$id_kriteria_ukm=$_POST['kriteria_ukm'];
+	mysql_query("delete from nilai_ukm where id_kriteria_ukm='".$id_kriteria_ukm."'"); /* kosongkan tabel nilai_supplier berdasarkan kriteria */
+	for($i=0;$i<count($ukm);$i++){
+		for($ii=0;$ii<count($ukm);$ii++){
 			if($i < $ii){
-				mysql_query("insert into nilai_produk(id_kriteria_produk,id_produk_1,id_produk_2,nilai) values('".$id_kriteria_produk."','".$produk[$i][0]."','".$produk[$ii][0]."','".$_POST['nilai_'.$produk[$i][0].'_'.$produk[$ii][0]]."')");
+				mysql_query("insert into nilai_ukm(id_kriteria_ukm,id_ukm_1,id_ukm_2,nilai) values('".$id_kriteria_ukm."','".$ukm[$i][0]."','".$ukm[$ii][0]."','".$_POST['nilai_'.$ukm[$i][0].'_'.$ukm[$ii][0]]."')");
 			}
 		}
 	}
-	$success='Penilaian produk berhasil disimpan.';
+	$success='Penilaian ukm berhasil disimpan.';
 }
 if(isset($_POST['reset'])){
-	$id_kriteria_produk=$_POST['kriteria_produk'];
-	mysql_query("delete from nilai_produk where id_kriteria_produk='".$id_kriteria_produk."'"); /* kosongkan tabel nilai_produk berdasarkan kriteria */
+	$id_kriteria_ukm=$_POST['kriteria_ukm'];
+	mysql_query("delete from nilai_ukm where id_kriteria_ukm='".$id_kriteria_ukm."'"); /* kosongkan tabel nilai_ukm berdasarkan kriteria */
 }
 
-for($i=0;$i<count($produk);$i++){
-	for($ii=0;$ii<count($produk);$ii++){
+for($i=0;$i<count($ukm);$i++){
+	for($ii=0;$ii<count($ukm);$ii++){
 		if($i < $ii){
-			$q=mysql_query("select nilai from nilai_produk where id_kriteria_produk='".$id_kriteria_produk."' and id_produk_1='".$produk[$i][0]."' and id_produk_2='".$produk[$ii][0]."'");
+			$q=mysql_query("select nilai from nilai_ukm where id_kriteria_ukm='".$id_kriteria_ukm."' and id_ukm_1='".$ukm[$i][0]."' and id_ukm_2='".$ukm[$ii][0]."'");
 			if(mysql_num_rows($q)>0){
 				$h=mysql_fetch_array($q);
 				$nilai=$h['nilai'];
 			}else{
-				mysql_query("insert into nilai_produk(id_kriteria_produk,id_produk_1,id_produk_2,nilai) values('".$id_kriteria_produk."','".$produk[$i][0]."','".$produk[$ii][0]."','1')");
+				mysql_query("insert into nilai_ukm(id_kriteria_ukm,id_ukm_1,id_ukm_2,nilai) values('".$id_kriteria_ukm."','".$ukm[$i][0]."','".$ukm[$ii][0]."','1')");
 				$nilai=1;
 			}
 			$selected[$nilai]=' selected';
 			
 			$daftar.='
 			  <tr>
-				<td align="right">'.$produk[$i][1].' - '.$produk[$i][2].'</td>
+				<td align="right">'.$ukm[$i][1].' - '.$ukm[$i][2].'</td>
 				<td align="center">
-				<input type="text" name="nilai_'.$produk[$i][0].'_'.$produk[$ii][0].'" value='.$nilai.'>
+				<input type="text" name="nilai_'.$ukm[$i][0].'_'.$ukm[$ii][0].'" value='.$nilai.'>
 				</td>
-				<td>'.$produk[$ii][1].' - '.$produk[$ii][2].'</td>
+				<td>'.$ukm[$ii][1].' - '.$ukm[$ii][2].'</td>
 			  </tr>
 			';
 			$selected[$nilai]='';
@@ -53,11 +53,11 @@ for($i=0;$i<count($produk);$i++){
 	}
 }
 
-$q="select * from kriteria_produk order by kode_kriteria_produk";
+$q="select * from kriteria_ukm order by kode_kriteria_ukm";
 $q=mysql_query($q);
 while($h=mysql_fetch_array($q)){
-	if($h['id_kriteria_produk']==$id_kriteria_produk){$s=' selected';}else{$s='';}
-	$list_kriteria_produk.='<option value="'.$h['id_kriteria_produk'].'"'.$s.'>'.$h['kode_kriteria_produk'].' - '.$h['nama_kriteria_produk'].'</option>';
+	if($h['id_kriteria_ukm']==$id_kriteria_ukm){$s=' selected';}else{$s='';}
+	$list_kriteria_ukm.='<option value="'.$h['id_kriteria_ukm'].'"'.$s.'>'.$h['kode_kriteria_ukm'].' - '.$h['nama_kriteria_ukm'].'</option>';
 }
 
 ?>
@@ -71,21 +71,21 @@ function ResetConfirm(){
 }
 </script>
 
-<h3 class="p2">Penilaian produk</h3>
+<h3 class="p2">Penilaian ukm</h3>
 
 <form action="<?php echo $link_update;?>" name="" method="post" enctype="multipart/form-data">
 <table class="table table-striped table-hover table-bordered">
 	<tbody>
 		<tr>
-			<td width="100">Kriteria produk</td>
-			<td><select name="kriteria_produk" class="medium m-wrap" onchange="submit()"><?php echo $list_kriteria_produk;?></select></td>
+			<td width="100">Kriteria ukm</td>
+			<td><select name="kriteria_ukm" class="medium m-wrap" onchange="submit()"><?php echo $list_kriteria_ukm;?></select></td>
 		</tr>
 	</tbody>
 </table>
 </form>
 
 <form action="<?php echo $link_update;?>" name="" method="post" enctype="multipart/form-data">
-<input name="kriteria_produk" type="hidden" value="<?php echo $id_kriteria_produk;?>" />
+<input name="kriteria_ukm" type="hidden" value="<?php echo $id_kriteria_ukm;?>" />
 <?php
 if(!empty($success)){
 	echo '
@@ -99,9 +99,9 @@ if(!empty($success)){
 <table class="table table-striped table-hover table-bordered">
 	<thead>
 		<tr>
-			<th>nama produk</th>
+			<th>nama ukm</th>
 			<th>Nilai Perbandingan</th>
-			<th>nama produk</th>
+			<th>nama ukm</th>
 		</tr>
 	</thead>
 	<tbody>

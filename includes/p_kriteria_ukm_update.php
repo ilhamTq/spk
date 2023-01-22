@@ -1,33 +1,33 @@
 <?php
-$link_list='?hal=data_kriteria_produk';
-$link_update='?hal=update_kriteria_produk';
+$link_list='?hal=data_kriteria_ukm';
+$link_update='?hal=update_kriteria_ukm';
 
 if(isset($_POST['save'])){
 	$id=$_POST['id'];
 	$action=$_POST['action'];
-	$kode_kriteria_produk=$_POST['kode_kriteria_produk'];
-	$nama_kriteria_produk=$_POST['nama_kriteria_produk'];
+	$kode_kriteria_ukm=$_POST['kode_kriteria_ukm'];
+	$nama_kriteria_ukm=$_POST['nama_kriteria_ukm'];
 	
-	if(empty($kode_kriteria_produk) or empty($nama_kriteria_produk)){
+	if(empty($kode_kriteria_ukm) or empty($nama_kriteria_ukm)){
 		$error='Masih ada beberapa kesalahan. Silahkan periksa lagi form di bawah ini.';
 	}else{
 		if($action=='add'){
-			if(mysql_num_rows(mysql_query("select * from kriteria_produk where kode_kriteria_produk='".$kode_kriteria_produk."'"))>0){
+			if(mysql_num_rows(mysql_query("select * from kriteria_ukm where kode_kriteria_ukm='".$kode_kriteria_ukm."'"))>0){
 				$error='kode sudah terdaftar. Silahkan gunakan kode yang lain.';
 			}else{
-				$q="insert into kriteria_produk(kode_kriteria_produk, nama_kriteria_produk) values('".$kode_kriteria_produk."', '".$nama_kriteria_produk."')";
+				$q="insert into kriteria_ukm(kode_kriteria_ukm, nama_kriteria_ukm) values('".$kode_kriteria_ukm."', '".$nama_kriteria_ukm."')";
 				mysql_query($q);
 				exit("<script>location.href='".$link_list."';</script>");
 			}
 		}
 		if($action=='edit'){
-			$q=mysql_query("select * from kriteria_produk where id_kriteria_produk='".$id."'");
+			$q=mysql_query("select * from kriteria_ukm where id_kriteria_ukm='".$id."'");
 			$h=mysql_fetch_array($q);
-			$kode_kriteria_produk_tmp=$h['kode_kriteria_produk'];
-			if(mysql_num_rows(mysql_query("select * from kriteria_produk where kode_kriteria_produk='".$kode_kriteria_produk."' and kode_kriteria_produk<>'".$kode_kriteria_produk_tmp."'"))>0){
+			$kode_kriteria_ukm_tmp=$h['kode_kriteria_ukm'];
+			if(mysql_num_rows(mysql_query("select * from kriteria_ukm where kode_kriteria_ukm='".$kode_kriteria_ukm."' and kode_kriteria_ukm<>'".$kode_kriteria_ukm_tmp."'"))>0){
 				$error='kode sudah terdaftar. Silahkan gunakan kode yang lain.';
 			}else{
-				$q="update kriteria_produk set kode_kriteria_produk='".$kode_kriteria_produk."', nama_kriteria_produk='".$nama_kriteria_produk."' where id_kriteria_produk='".$id."'";
+				$q="update kriteria_ukm set kode_kriteria_ukm='".$kode_kriteria_ukm."', nama_kriteria_ukm='".$nama_kriteria_ukm."' where id_kriteria_ukm='".$id."'";
 				mysql_query($q);
 				exit("<script>location.href='".$link_list."';</script>");
 			}
@@ -38,14 +38,14 @@ if(isset($_POST['save'])){
 	if(empty($_GET['action'])){$action='add';}else{$action=$_GET['action'];}
 	if($action=='edit'){
 		$id=$_GET['id'];
-		$q=mysql_query("select * from kriteria_produk where id_kriteria_produk='".$id."'");
+		$q=mysql_query("select * from kriteria_ukm where id_kriteria_ukm='".$id."'");
 		$h=mysql_fetch_array($q);
-		$kode_kriteria_produk=$h['kode_kriteria_produk'];
-		$nama_kriteria_produk=$h['nama_kriteria_produk'];
+		$kode_kriteria_ukm=$h['kode_kriteria_ukm'];
+		$nama_kriteria_ukm=$h['nama_kriteria_ukm'];
 	}
 	if($action=='delete'){
 		$id=$_GET['id'];
-		mysql_query("delete from kriteria_produk where id_kriteria_produk='".$id."'");
+		mysql_query("delete from kriteria_ukm where id_kriteria_ukm='".$id."'");
 		exit("<script>location.href='".$link_list."';</script>");
 	}
 }
@@ -71,11 +71,11 @@ if(!empty($error)){
 <table width="100%" border="0" cellspacing="4" cellpadding="4" class="tabel_reg">
   <tr>
 	<td width="120">kode<span class="required">*</span> </td>
-	<td><input name="kode_kriteria_produk" type="text" size="40" value="<?php echo $kode_kriteria_produk;?>" class="m-wrap large"></td>
+	<td><input name="kode_kriteria_ukm" type="text" size="40" value="<?php echo $kode_kriteria_ukm;?>" class="m-wrap large"></td>
   </tr>
   <tr>
 	<td>Nama Kriteria<span class="required">*</span> </td>
-	<td><input name="nama_kriteria_produk" type="text" size="40" value="<?php echo $nama_kriteria_produk;?>" class="m-wrap large"></td>
+	<td><input name="nama_kriteria_ukm" type="text" size="40" value="<?php echo $nama_kriteria_ukm;?>" class="m-wrap large"></td>
   </tr>
   <tr>
 	<td></td>

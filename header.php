@@ -22,8 +22,8 @@ session_start();
    <li><a href='./'><span>Home</span></a></li>
    <li class='active has-sub'><a href='#'><span>Data Master</span></a>
       <ul>
-		 <li class='has-sub'><a href='?hal=data_produk'><span>Data UKM </span></a></li>
-		 <li class='has-sub'><a href='?hal=data_kriteria_produk'><span>Kriteria UKM </span></a></li>
+		 <li class='has-sub'><a href='?hal=data_ukm'><span>Data UKM </span></a></li>
+		 <li class='has-sub'><a href='?hal=data_kriteria_ukm'><span>Kriteria UKM </span></a></li>
       </ul>
     <li class='last'><a href='logout.php'><span>Keluar</span></a></li>
 	</div>
@@ -33,9 +33,9 @@ if ($_SESSION['level_id']=='pimpinan'){ ?>
 
 <ul>
 <li><a href='./'><span>Home</span></a></li>
-   <li><a href='?hal=nilai_kriteria_produk'><span>Kriteria UKM </span></a></li>
-   <li><a href='?hal=nilai_produk'><span>Penilaian UKM </span></a></li>
-   <li><a href='?hal=hasil_produk'><span>Ranking UKM </span></a></li>
+   <li><a href='?hal=nilai_kriteria_ukm'><span>Kriteria UKM </span></a></li>
+   <li><a href='?hal=nilai_ukm'><span>Penilaian UKM </span></a></li>
+   <li><a href='?hal=hasil_ukm'><span>Ranking UKM </span></a></li>
     <li class="last"><a href="logout.php">Sign Out</a></li>
 </ul></div>
 <?php } ?>

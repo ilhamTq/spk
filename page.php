@@ -25,26 +25,26 @@ switch($page){
 	case 'hasil_supplier':
 		$page="include 'includes/p_hasil_supplier.php';";
 		break;
-	case 'data_produk':
-		$page="include 'includes/p_produk.php';";
+	case 'data_ukm':
+		$page="include 'includes/p_ukm.php';";
 		break;
-	case 'update_produk':
-		$page="include 'includes/p_produk_update.php';";
+	case 'update_ukm':
+		$page="include 'includes/p_ukm_update.php';";
 		break;
-	case 'data_kriteria_produk':
-		$page="include 'includes/p_kriteria_produk.php';";
+	case 'data_kriteria_ukm':
+		$page="include 'includes/p_kriteria_ukm.php';";
 		break;
-	case 'update_kriteria_produk':
-		$page="include 'includes/p_kriteria_produk_update.php';";
+	case 'update_kriteria_ukm':
+		$page="include 'includes/p_kriteria_ukm_update.php';";
 		break;
-	case 'nilai_kriteria_produk':
-		$page="include 'includes/p_nilai_kriteria_produk.php';";
+	case 'nilai_kriteria_ukm':
+		$page="include 'includes/p_nilai_kriteria_ukm.php';";
 		break;
-	case 'nilai_produk':
-		$page="include 'includes/p_nilai_produk.php';";
+	case 'nilai_ukm':
+		$page="include 'includes/p_nilai_ukm.php';";
 		break;
-	case 'hasil_produk':
-		$page="include 'includes/p_hasil_produk.php';";
+	case 'hasil_ukm':
+		$page="include 'includes/p_hasil_ukm.php';";
 		break;
 
 	default:
